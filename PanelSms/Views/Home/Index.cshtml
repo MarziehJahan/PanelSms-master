@@ -1,0 +1,188 @@
+﻿@model PanelSimorghViewModel
+@ViewBag
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="~/bootstrap-v4-rtl/css/bootstrap-rtl.css" rel="stylesheet" />
+    <script src="~/lib/jquery/dist/jquery.js"></script>
+    <script src="~/bootstrap-v4-rtl/js/bootstrap.js"></script>
+    <link href="~/bootstrap-v4-rtl/css/bootstrap.css" rel="stylesheet" />
+    <link href="~/bootstrap-v4-rtl/css/bootstrap-grid.css" rel="stylesheet" />
+
+    <title>Panel</title>
+    <style>
+        .fa-2x {
+            font-size: 2em;
+        }
+
+        .fa {
+            display: inline-block;
+            font: normal normal normal 14px/1 FontAwesome;
+            font-size: inherit;
+            text-rendering: auto;
+            -webkit-font-smoothing: antialiased
+        }
+
+        .fa-home:before {
+            content: "\f015";
+        }
+
+        .btn-circle {
+            width: 50px;
+            height: 50px;
+            text-align: center;
+            padding: 12px 0;
+            font-size: 12px;
+            line-height: 1.42;
+            border-radius: 50%;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="jumbotron text-center">
+        <h1>!هم اکنون ثبت نام کنید</h1>
+        <p>برای ثبت نام فرم زیر را تکمیل کنید</p>
+        <a class="btn btn-primary btn-lg btn-action btn-circle" role="button">
+            <i class="fa fa-home fa-2x">
+                <span class="glyphicon glyphicon-home"></span>
+            </i>
+        </a>
+    </div>
+    @if (String.IsNullOrWhiteSpace(ViewBag.Success))
+    {
+<div asp-validation-summary="All" role="alert"
+     id="alert" class="text-danger rtl container
+             alert alert-dismissible d-none alert-danger">
+</div>}
+    @if (!String.IsNullOrWhiteSpace(ViewBag.Success))
+    {
+<div role="alert"
+     id="success" class="text-success rtl container alert alert-success">
+    <p>@ViewBag.Success</p>
+</div>}
+    <form asp-action="Index">
+        <div class="container">
+            <div class="row rtl">
+                <div class="col-sm-4">
+                    <input asp-for="Name" type="text" class="form-control rtl" placeholder="نام " />
+                    <span asp-validation-for="Name" class="text-danger rtl"></span>
+                </div>
+                <div class="col-sm-4">
+                    <input asp-for="FName" type="text" class="form-control rtl" placeholder="نام خانوادگی" />
+                    <span asp-validation-for="FName" class="text-danger rtl"></span>
+                </div>
+                <div class="col-sm-4">
+                    <input asp-for="Username" type="text" class="form-control" placeholder=" نام کاربری" />
+                    <span asp-validation-for="Username" class="text-danger"></span>
+                </div>
+
+
+            </div>
+        </div>
+        <div class="container">
+            <div class="row m-2">
+            </div>
+        </div>
+        <div class="container">
+            <div class="row rtl">
+                <div class="col-sm-4">
+                    <input asp-for="Email" class="form-control" placeholder=" ایمیل" />
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+                <div class="col-sm-4">
+                    <input asp-for="@Model.PhoneCall" class="form-control" placeholder=" تلفن ثابت با کد شهر" />
+                    <span asp-validation-for="PhoneCall" class="text-danger"></span>
+                </div>
+                <div class="col-sm-4">
+                    <input asp-for="PhoneNumber" class="form-control" placeholder="موبایل " />
+                    <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                </div>
+
+            </div>
+        </div>
+        <div class="container">
+            <div class="row m-2">
+            </div>
+        </div>
+        <div class="container">
+            <div class="row rtl">
+                <div class="col-sm-4">
+                    <input asp-for="NationalCode" type="number" class="form-control rtl" placeholder=" کد ملی" />
+                    <span asp-validation-for="NationalCode" class="text-danger"></span>
+                </div>
+                <div class="col-sm-4">
+                    <input asp-for="PostalCode" type="number" class="form-control rtl" placeholder="   کد پستی" />
+                    <span asp-validation-for="PostalCode" class="text-danger"></span>
+                </div>
+                <div class="col-sm-4">
+                    <input asp-for="BirthNo" type="number" class="form-control rtl" placeholder=" شماره شناسنامه" />
+                    <span asp-validation-for="BirthNo" class="text-danger"></span>
+                </div>
+
+            </div>
+        </div>
+        <div class="container">
+            <div class="row m-2">
+            </div>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-4">
+                </div>
+                <div class="col-sm-4">
+                </div>
+                <div class="col-sm-4 rtl">
+                    <textarea asp-for="Address" class="form-control rtl" tabindex="15" placeholder=" آدرس"></textarea>
+                    <span asp-validation-for="Address" class="text-danger rtl"></span>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row m-2">
+            </div>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-4 rtl">
+                </div>
+                <div class="col-sm-4 rtl">
+                    <div>
+                        <label>وضعیت</label>
+                    </div>
+                    <div class="row mr-lg-5">
+                        @foreach (var item in Model.Conditions)
+                        {
+            <input value="@item.ConditionId" asp-for="@Model.ConditionId" type="radio" class=" m-lg-2" />
+                            <label>@item.ConDescription</label>}
+                        <span asp-validation-for="Conditions" class="text-danger rtl"></span>
+                    </div>
+                </div>
+                <div class="col-sm-4 rtl">
+                    <label>پنل کاربری</label>
+                    <select asp-for="@Model.UserPanelId" asp-items="@Model.UserPanels" class="form-control rtl"></select>
+                    <span asp-validation-for="UserPanels" class="text-danger rtl"></span>
+                </div>
+                <div class="col-sm-4"></div>
+                <div class="col-sm-4"></div>
+                <div class="rtl col-sm-4">
+                    <label>نحوه آشنایی</label>
+                    <select asp-for="@Model.AcquaintanceId" asp-items="@Model.AcquaintanceTypes" class="form-control rtl"></select>
+                    <span asp-validation-for="AcquaintanceTypes" class="text-danger is-valid"></span>
+                </div>
+                <div class="col-sm-4"></div>
+                <div class="col-sm-4"></div>
+                <div class="col-sm-4 rtl">
+                    <input class="mt-4" type="checkbox" asp-for="@Model.CheckTerms" />  تمام شرایط را کامل خوانده و می پذیرم.
+                </div>
+                <div class=" rtl container col-sm-12 mb-5 mt-5">
+                    <button id="create" class="btn btn-primary btn-lg btn-block" type="submit">ثبت نام</button>
+                </div>
+            </div>
+        </div>
+
+    </form>
+</body>
+</html>
