@@ -1,5 +1,4 @@
 ﻿@model PanelSimorghViewModel
-@ViewBag
 <!doctype html>
 <html lang="en">
 <head>
@@ -41,7 +40,6 @@
     </style>
 </head>
 <body>
-
     <div class="jumbotron text-center">
         <h1>!هم اکنون ثبت نام کنید</h1>
         <p>برای ثبت نام فرم زیر را تکمیل کنید</p>
@@ -55,7 +53,7 @@
     {
 <div asp-validation-summary="All" role="alert"
      id="alert" class="text-danger rtl container
-             alert alert-dismissible d-none alert-danger">
+             alert alert-dismissible">
 </div>}
     @if (!String.IsNullOrWhiteSpace(ViewBag.Success))
     {
@@ -155,8 +153,9 @@
                     <div class="row mr-lg-5">
                         @foreach (var item in Model.Conditions)
                         {
-            <input value="@item.ConditionId" asp-for="@Model.ConditionId" type="radio" class=" m-lg-2" />
-                            <label>@item.ConDescription</label>}
+                            <input value="@item.ConditionId" asp-for="@Model.ConditionId" type="radio" class=" m-lg-2" />
+                            <label>@item.ConDescription</label>
+                        }
                         <span asp-validation-for="Conditions" class="text-danger rtl"></span>
                     </div>
                 </div>

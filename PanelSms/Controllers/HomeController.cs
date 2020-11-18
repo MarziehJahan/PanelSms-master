@@ -65,9 +65,23 @@ namespace PanelSms.Controllers
                     Username = model.Username,
                     userpanel = ctx.users.Find(Convert.ToInt32(model.UserPanelId))
                 });
-                ctx.SaveChanges();
-                ViewBag.Success = ".ثبت نام با موفقیت انجام شد";
-                return View(simorghViewModel);
+                if (ctx.Panels.Any(a=>a.Username==model.Username))
+                {
+                    ModelState.AddModelError("Model Exists", "نام کاربری قبلا ثبت شده است");
+                    return View(simorghViewModel);
+                }
+                else if (ctx.Panels.Any(a => a.NationalCode == model.NationalCode))
+                {
+                    ModelState.AddModelError("Model Exists", "کد ملی تکراری است");
+                    return View(simorghViewModel);
+                }
+                else
+                {
+                    ctx.SaveChanges();
+                    ViewBag.Success = "ثبت نام با موفقیت انجام شد";
+                    return View(simorghViewModel);
+                }
+               
             }
             else
             {
